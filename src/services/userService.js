@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/users`;
 const  headers = { Authorization: `Bearer ${localStorage.getItem('token')}` }
 
 export const index = async () => {
@@ -15,7 +15,7 @@ export const index = async () => {
     }
 
     console.log(data)
-    return data
+    return data;
   } catch (err) {
     console.log(err);
     throw new Error(err);

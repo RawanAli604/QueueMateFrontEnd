@@ -1,11 +1,9 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { signUp } from '../../services/authService';
-import { UserContext } from '../../contexts/UserContext';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
     username: '',
@@ -22,7 +20,6 @@ const SignUpForm = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-
     try {
       await signUp(formData);
       navigate('/sign-in');
@@ -31,9 +28,7 @@ const SignUpForm = () => {
     }
   };
 
-  const isFormInvalid = () => {
-    return !(username && email && password);
-  };
+  const isFormInvalid = () => !(username && email && password);
 
   return (
     <main>
@@ -45,9 +40,10 @@ const SignUpForm = () => {
           <input
             type='text'
             id='username'
-            value={username}
             name='username'
+            value={username}
             onChange={handleChange}
+            autoComplete='username'
             required
           />
         </div>
@@ -56,9 +52,10 @@ const SignUpForm = () => {
           <input
             type='email'
             id='email'
-            value={email}
             name='email'
+            value={email}
             onChange={handleChange}
+            autoComplete='email'
             required
           />
         </div>
@@ -67,14 +64,15 @@ const SignUpForm = () => {
           <input
             type='password'
             id='password'
-            value={password}
             name='password'
+            value={password}
             onChange={handleChange}
+            autoComplete='new-password'
             required
           />
         </div>
         <div>
-          <button disabled={isFormInvalid()}>Sign Up</button>
+          <button type='submit' disabled={isFormInvalid()}>Sign Up</button>
           <button type='button' onClick={() => navigate('/')}>Cancel</button>
         </div>
       </form>
