@@ -1,4 +1,3 @@
-// src/components/Dashboard/Dashboard.jsx
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import * as waitlistService from '../../services/waitlistService';
@@ -99,6 +98,8 @@ const Dashboard = () => {
               <button onClick={() => navigate(`/venue/${venue.id}/edit`)}>Edit Venue</button>
             </div>
           ))}
+          <h2>Quick Actions</h2>
+          <button onClick={() => navigate('/create-venue')}>Create Venue</button>
         </section>
       )}
 
@@ -118,10 +119,6 @@ const Dashboard = () => {
            </ul>
         </section>
       )}
-
-      <section>
-        {user.role === 'staff'&& <h2>Quick Actions</h2> && <button onClick={() => navigate('/create-venue')}>Create Venue</button>}
-      </section>
     </main>
   );
 };

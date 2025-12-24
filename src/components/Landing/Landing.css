@@ -1,0 +1,103 @@
+/* ====== Layout ====== */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+  color: #e8ecf4;
+  background: linear-gradient(180deg, #1f2b44 0%, #0f1830 100%);
+  min-height: 100vh;
+}
+
+/* ====== Typography ====== */
+h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 8px;
+  color: #cfd8ff;
+}
+
+p {
+  line-height: 1.7;
+  max-width: 780px;
+  color: #d6dbeb;
+}
+
+/* ====== Sections ====== */
+section {
+  background: rgba(10, 18, 40, 0.55);
+  border: 1px solid rgba(120, 140, 200, 0.18);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 22px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  transition: border-color .25s ease, transform .25s ease;
+}
+
+section:hover {
+  border-color: rgba(180, 200, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+/* ====== Buttons ====== */
+button {
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-right: 12px;
+  margin-top: 12px;
+  transition: background .25s ease, transform .2s ease;
+}
+
+/* Primary Action */
+button:first-of-type {
+  background: linear-gradient(135deg, #3d5cff, #1f3bb8);
+  color: #ffffff;
+}
+
+button:first-of-type:hover {
+  background: linear-gradient(135deg, #5f76ff, #2948d3);
+  transform: translateY(-1px);
+}
+
+/* Secondary Action */
+button:last-of-type {
+  background: rgba(150, 165, 210, 0.16);
+  color: #dfe6ff;
+}
+
+button:last-of-type:hover {
+  background: rgba(180, 195, 240, 0.28);
+  transform: translateY(-1px);
+}
+
+/* ====== Feature List ====== */
+ul {
+  margin-top: 12px;
+  padding-left: 18px;
+}
+
+li {
+  margin-bottom: 6px;
+  color: #c8d2f2;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 700px) {
+  h1 { font-size: 1.9rem; }
+  section { padding: 22px; }
+  button { width: 100%; margin-right: 0; }
+}

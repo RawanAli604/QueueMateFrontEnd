@@ -1,10 +1,25 @@
-// src/components/Landing.jsx
+import './Landing.css';
 
 const Landing = () => {
   return (
-    <main>
-      <h1>Hello, you are on the landing page for visitors.</h1>
-      <p>Sign up now, or sign in to see your super secret dashboard!</p>
+    <main className="landing">
+      <div className="landing-hero">
+        <h1>QueueEase</h1>
+        <p>Smart waitlist & venue queue management — fast, simple, reliable.</p>
+
+        <div className="cta-group">
+          <button onClick={() => window.location.href='/sign-up'}>
+            Create Account
+          </button>
+
+          <button
+            className="secondary"
+            onClick={() => window.location.href='/sign-in'}
+          >
+            Sign In
+          </button>
+        </div>
+      </div>
     </main>
   );
 };
