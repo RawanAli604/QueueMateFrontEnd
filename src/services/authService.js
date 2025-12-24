@@ -1,13 +1,9 @@
-// src/services/authService.js
 
-// Use the `VITE_BACK_END_SERVER_URL` environment variable to set the base URL.
-// Note the `/auth` path added to the server URL that forms the base URL for
-// all the requests in this service.
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/auth`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}`;
 
 const signUp = async (formData) => {
   try {
-    const res = await fetch(`${BASE_URL}/sign-up`, {
+    const res = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -18,14 +14,9 @@ const signUp = async (formData) => {
     if (data.err) {
       throw new Error(data.err);
     }
+    
+    return data;
 
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      console.log(data.token)
-      return JSON.parse(atob(data.token.split('.')[1]))
-    }
-
-    throw new Error('Invalid response from server');
   } catch (err) {
     console.log(err);
     throw new Error(err);
@@ -34,7 +25,7 @@ const signUp = async (formData) => {
 
 const signIn = async (formData) => {
   try {
-    const res = await fetch(`${BASE_URL}/sign-in`, {
+    const res = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
