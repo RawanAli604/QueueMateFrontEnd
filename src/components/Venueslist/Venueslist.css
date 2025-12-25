@@ -1,0 +1,97 @@
+.venues-page {
+  padding: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.venues-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  opacity: .7;
+  margin-top: .25rem;
+}
+
+.control-bar {
+  display: flex;
+  gap: .75rem;
+}
+
+.search-box,
+.select {
+  padding: .65rem .9rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.grid {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.2rem;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 14px rgba(0,0,0,.04);
+  transition: transform .15s ease, box-shadow .15s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  background: #efefef;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  font-size: .75rem;
+}
+
+.location {
+  opacity: .7;
+  margin: .4rem 0 1rem;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats span {
+  opacity: .6;
+  font-size: .8rem;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  background-size: 200%;
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  to { background-position: -200%; }
+}
+
+.empty-state {
+  text-align: center;
+  opacity: .8;
+  margin-top: 2rem;
+}
