@@ -24,8 +24,9 @@ const SignUpForm = () => {
     evt.preventDefault();
 
     try {
-      await signUp(formData);
-      navigate('/sign-in');
+      const newUser = await signUp({ username, email, password });
+      setUser(newUser);
+      navigate('/');
     } catch (err) {
       setMessage(err.message);
     }
