@@ -1,35 +1,43 @@
 // src/contexts/UserContext.jsx
-
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 const UserContext = createContext();
 
 function UserProvider({ children }) {
   const getUserFromToken = () => {
-  const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    if (!token) return null;
 
-  if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      // Ensure username and role are present
+      return {
+        id: payload.sub,
+        username: payload.username || "User", // fallback if username not in token
+        role: payload.role,
+      };
+    } catch (err) {
+      console.error("Invalid token", err);
+      return null;
+    }
+  };
 
-  return JSON.parse(atob(token.split('.')[1]));
-};
-
-  // Create state just like you normally would in any other component
   const [user, setUser] = useState(getUserFromToken());
-  // This is the user state and the setUser function that will update it!
-  // This variable name isn't special; it's just convention to use `value`.
+
+  // Optional: watch localStorage for token changes
+  useEffect(() => {
+    const handleStorage = () => setUser(getUserFromToken());
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
   const value = { user, setUser };
 
   return (
     <UserContext.Provider value={value}>
-      {/* The data we pass to the value prop above is now available to */}
-      {/* all the children of the UserProvider component. */}
       {children}
     </UserContext.Provider>
   );
-};
+}
 
-// When components need to use the value of the user context, they will need
-// access to the UserContext object to know which context to access.
-// Therefore, we export it here.
 export { UserProvider, UserContext };
-

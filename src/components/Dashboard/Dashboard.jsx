@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  if (!user || !localStorage.getItem('token')) return;
+    if (!user) return;
 
     const fetchData = async () => {
       try {
@@ -37,8 +37,7 @@ const Dashboard = () => {
 
         setLoading(false);
       } catch (err) {
-        setAllUsers([]); 
-        console.log(err);
+        console.log(err)
       }
     };
 
