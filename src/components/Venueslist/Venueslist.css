@@ -1,0 +1,101 @@
+/* Page wrapper */
+.venues-page {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.venues-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.venues-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+/* Control bar: search + sort */
+.control-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.search-box,
+.select {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-box:focus,
+.select:focus {
+  border-color: #0077ff;
+}
+
+/* Venue list as grid */
+ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual venue card */
+.venue-item {
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.venue-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* Link styling */
+.venue-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Venue image */
+.venue-link img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.venue-link img:hover {
+  transform: scale(1.05);
+}
+
+.venue-link h2 {
+  font-size: 1.4rem;
+  margin: 0.8rem 1rem 0.3rem;
+  color: #222;
+}
+
+.venue-item div {
+  padding: 0 1rem 1rem;
+  font-size: 0.95rem;
+  color: #555;
+}

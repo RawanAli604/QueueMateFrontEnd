@@ -1,0 +1,101 @@
+/* Main page wrapper */
+.venue-details-page {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #f7f8fa;
+}
+
+/* Venue container */
+.venue-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  width: 100%;
+  margin: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+/* Image container */
+.venue-image-container {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.venue-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.venue-image:hover {
+  transform: scale(1.05);
+}
+
+/* Info section */
+.venue-info {
+  padding: 2rem;
+}
+
+.venue-name {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.venue-info p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+/* Join button */
+.join-btn {
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.5rem;
+  background-color: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.join-btn:hover {
+  background-color: #005fcc;
+}
+
+/* Waitlist info box */
+.waitlist-status {
+  margin-top: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  background-color: #f1f3f5;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* Responsive layout: image left, info right on larger screens */
+@media(min-width: 768px) {
+  .venue-card {
+    flex-direction: row;
+  }
+
+  .venue-image-container {
+    width: 50%;
+    height: auto;
+  }
+
+  .venue-info {
+    width: 50%;
+    padding: 2rem 3rem;
+  }
+}

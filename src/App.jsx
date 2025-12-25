@@ -6,6 +6,8 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import About from './components/About/About';
+import Venues from './components/Venueslist/Venueslist';
+import Venuedetail from './components/Venuedetail/Venuedetail';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
 
@@ -21,10 +23,8 @@ const App = () => {
           user ?
           <>
             <Route path='/' element={<Dashboard/>}/>
-            <Route path='/products' element={<h1>Producs</h1>}/>
-            <Route path='/favs' element={<h1>Favs</h1>}/>
-            <Route path='/profile' element={<h1>{user.username}</h1>}/>
-            <Route path='/orders' element={<h1>ORDERS</h1>}/>
+            <Route path='/venues' element={<Venues/>}/>
+            <Route path='/venues/:id' element={<Venuedetail />} />
           </>
             :
             <>

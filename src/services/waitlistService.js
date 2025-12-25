@@ -13,3 +13,21 @@ export const getVenueWaitlists = async (venueId) => {
   });
   return await res.json();
 };
+
+export const joinWaitlist = async (venueId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/waitlist`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ venue_id: venueId }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.detail || "Failed to join waitlist");
+    }
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};

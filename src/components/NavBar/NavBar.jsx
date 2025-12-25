@@ -14,24 +14,24 @@ const NavBar = () => {
   };
 
   return (
-    <nav class='navbar'>
-      <div class='nav-container'>
-        <div class='nav-logo'>
+    <nav className='navbar'>
+      <div className='nav-container'>
+        <div className='nav-logo'>
           QueueMate
         </div>
       {user ? (
-        <ul class='nav-links'>
-          <li class='nav-link'>Welcome, {user.username}</li>
-          <li class='nav-link'><Link to='/'>Dashboard</Link></li>
+        <ul className='nav-links'>
+          <li className='nav-link'>Welcome, {user.username}</li>
+          <li className='nav-link'><Link to='/'>Dashboard</Link></li>
 
-          <li class='nav-link'><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
+          <li className='nav-link'><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
         </ul>
       ) : (
         <ul>
-          <li class='nav-link'><Link to='/'>Home</Link></li>
-          <li class='nav-link'><NavLink to="/about">About</NavLink></li>
-          <li class='nav-link'><Link to='/sign-up'>Sign Up</Link></li>
-          <li class='nav-link'><Link to='/sign-in'>Sign In</Link></li>
+          <li className='nav-link'><Link to='/'>Home</Link></li>
+          <li className='nav-link'><NavLink to="/about">About</NavLink></li>
+          <li className='nav-link'><Link to='/sign-up'>Sign Up</Link></li>
+          <li className='nav-link'><Link to='/sign-in'>Sign In</Link></li>
         </ul>
       )}
       </div>
