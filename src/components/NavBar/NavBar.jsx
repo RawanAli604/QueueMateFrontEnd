@@ -1,9 +1,6 @@
-// src/components/NavBar/NavBar.jsx
-
-// Import the useContext hook
 import { useContext } from 'react';
 import { Link } from 'react-router';
-
+import './NavBar.css';
 import { UserContext } from '../../contexts/UserContext';
 import { NavLink } from "react-router-dom";
 
@@ -17,21 +14,27 @@ const NavBar = () => {
   };
 
   return (
-    <nav>
+    <nav class='navbar'>
+      <div class='nav-container'>
+        <div class='nav-logo'>
+          QueueMate
+        </div>
       {user ? (
-        <ul>
-          <li>Welcome, {user.username}</li>
-          <li><Link to='/'>Dashboard</Link></li>
-          <li><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
+        <ul class='nav-links'>
+          <li class='nav-link'>Welcome, {user.username}</li>
+          <li class='nav-link'><Link to='/'>Dashboard</Link></li>
+
+          <li class='nav-link'><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
         </ul>
       ) : (
         <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><NavLink to="/about">About</NavLink></li>
-          <li><Link to='/sign-up'>Sign Up</Link></li>
-          <li><Link to='/sign-in'>Sign In</Link></li>
+          <li class='nav-link'><Link to='/'>Home</Link></li>
+          <li class='nav-link'><NavLink to="/about">About</NavLink></li>
+          <li class='nav-link'><Link to='/sign-up'>Sign Up</Link></li>
+          <li class='nav-link'><Link to='/sign-in'>Sign In</Link></li>
         </ul>
       )}
+      </div>
     </nav>
   );
 };

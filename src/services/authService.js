@@ -33,7 +33,17 @@ export const signIn = async (userData) => {
       throw new Error(err.detail || 'Login failed');
     }
 
-    return await res.json();
+    const data = await res.json();
+    if (data.err) {
+      throw new Error(data.err);
+    }
+
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+      return JSON.parse(atob(data.token.split('.')[1]))
+    }
+
+    throw new Error('Invalid response from server');
   } catch (err) {
     console.error(err);
     throw err;

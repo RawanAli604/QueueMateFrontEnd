@@ -7,6 +7,7 @@ main {
   color: #e8ecf4;
   background: linear-gradient(180deg, #1f2b44 0%, #0f1830 100%);
   min-height: 100vh;
+  text-align: center;
 }
 
 /* ====== Typography ====== */
@@ -93,6 +94,13 @@ ul {
 li {
   margin-bottom: 6px;
   color: #c8d2f2;
+}
+
+.small-hint {
+  display: block;
+  margin-top: 1.5rem;
+  opacity: .6;
+  font-size: .9rem;
 }
 
 /* ====== Responsive ====== */

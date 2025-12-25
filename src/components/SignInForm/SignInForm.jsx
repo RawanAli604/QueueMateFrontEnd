@@ -14,6 +14,7 @@ const SignInForm = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
+    role:''
   });
 
   const handleChange = (evt) => {

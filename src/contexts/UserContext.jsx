@@ -1,4 +1,3 @@
-// src/contexts/UserContext.jsx
 import { createContext, useState, useEffect } from 'react';
 
 const UserContext = createContext();
@@ -10,10 +9,9 @@ function UserProvider({ children }) {
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      // Ensure username and role are present
       return {
         id: payload.sub,
-        username: payload.username || "User", // fallback if username not in token
+        username: payload.username || "User",
         role: payload.role,
       };
     } catch (err) {
@@ -24,7 +22,6 @@ function UserProvider({ children }) {
 
   const [user, setUser] = useState(getUserFromToken());
 
-  // Optional: watch localStorage for token changes
   useEffect(() => {
     const handleStorage = () => setUser(getUserFromToken());
     window.addEventListener("storage", handleStorage);

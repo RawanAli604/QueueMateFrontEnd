@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}`;
 
 export const index = async () => {
   const token = localStorage.getItem('token');

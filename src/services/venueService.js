@@ -1,6 +1,6 @@
 // src/services/venueService.js
 
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/venues`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/venue`;
 const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
 
 // Get all venues (optional, for admin or general listing)
@@ -30,12 +30,12 @@ export const getVenueById = async (venueId) => {
 };
 
 // Get venues controlled by a staff member along with waitlist stats
-export const getStaffVenues = async (staffId) => {
+export const getStaffVenues = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/staff/${staffId}`, { headers });
+    const res = await fetch(`${BASE_URL}/my`, { headers });
     const data = await res.json();
     if (data.err) throw new Error(data.err);
-    return data; // expect array of venues with waitlist stats: {id, name, totalWaiting, totalPending, nextCustomer}
+    return data; 
   } catch (err) {
     console.error(err);
     throw new Error(err);
