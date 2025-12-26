@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
-
+import { deleteVenue } from "../../services/adminService";
 import {
   getMyWaitlist,
   getVenueWaitlists,
@@ -21,6 +21,9 @@ export default function VenueDetailsPage() {
   const [waitlistCount, setWaitlistCount] = useState(0);
   const [myEntry, setMyEntry] = useState(null);
   const [showPendingContainer, setShowPendingContainer] = useState(false);
+  const [modal, setModal] = useState(null);
+  const [loadingId, setLoadingId] = useState(null);
+
 
   useEffect(() => {
     loadPage();
@@ -31,20 +34,16 @@ export default function VenueDetailsPage() {
     setVenue(venueData);
 
     if (user?.role === "staff") {
-      // Staff → fetch venue waitlists and count ONLY pending
       const entries = await getVenueWaitlistsStaff(id);
       const pending = entries.filter(e => e.status === "pending");
       setWaitlistCount(pending.length);
 
     } else if (user?.role === "customer") {
-      // Customer → fetch venue waitlists (user-scoped)
       const entries = await getVenueWaitlists(id);
 
-      // Count ONLY waiting customers in queue
       const waiting = entries.filter(e => e.status === "waiting");
       setWaitlistCount(waiting.length);
 
-      // Detect if THIS user already has a waiting entry
       const mine = entries.find(
         e => e.user_id === user.id && e.status === "waiting"
       );
@@ -67,7 +66,31 @@ export default function VenueDetailsPage() {
       }
     }
   };
+  
+  const handleDeleteVenue = (venue) => {
+    setModal({
+      type: "confirm",
+      title: "Delete Venue",
+      message: `Are you sure you want to delete "${venue.name}"?`,
+      venueId: venue.id,
+    });
+  };
 
+  const confirmDelete = async () => {
+    if (!modal?.venueId) return;
+    setLoadingId(modal.venueId);
+    try {
+      await deleteVenue(modal.venueId);
+      setModal({ type: "info", title: "Deleted", message: "Venue deleted successfully!" });
+      navigate("/venues");
+    } catch (err) {
+      setModal({ type: "error", title: "Error", message: err.message || "Failed to delete venue" });
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
+  const closeModal = () => setModal(null);
   if (!venue) return <p>Loading...</p>;
 
   return (
@@ -85,6 +108,27 @@ export default function VenueDetailsPage() {
           </div>
         </div>
       )}
+
+      <div className="venues-list">
+      {modal && (
+        <div className="modal-container">
+          <div className="modal-content">
+            <h2>{modal.title}</h2>
+            <p>{modal.message}</p>
+            {modal.type === "confirm" ? (
+              <div className="modal-buttons">
+                <button onClick={confirmDelete} disabled={loadingId === modal.venueId}>
+                  {loadingId === modal.venueId ? "Deleting..." : "Yes, Delete"}
+                </button>
+                <button onClick={closeModal}>Cancel</button>
+              </div>
+            ) : (
+              <button onClick={closeModal}>OK</button>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
 
       <div className="venue-card">
         <h1 className="venue-name">{venue.name}</h1>
@@ -121,6 +165,11 @@ export default function VenueDetailsPage() {
             Edit Venue
           </button>
           </>
+        )}
+        {user?.role === "admin" && (
+          <button onClick={() => handleDeleteVenue(venue)}>
+            Delete Venue
+          </button>
         )}
       </div>
     </main>

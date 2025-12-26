@@ -37,7 +37,7 @@ export const getAllVenues = async () => {
 };
 
 export const deleteVenue = async (venueId) => {
-  const res = await fetch(`${BASE_URL}/admin/venues/${venueId}`, {
+  const res = await fetch(`${BASE_URL}/venues/${venueId}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   });

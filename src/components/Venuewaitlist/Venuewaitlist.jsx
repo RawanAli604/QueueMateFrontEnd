@@ -11,7 +11,7 @@ import {
 import './Venuewaitlist.css';
 
 export default function StaffVenueWaitlist() {
-  const { id } = useParams(); // venue id
+  const { id } = useParams();
   const { user } = useContext(UserContext);
   const [waitlists, setWaitlists] = useState([]);
   const [loadingId, setLoadingId] = useState(null);
