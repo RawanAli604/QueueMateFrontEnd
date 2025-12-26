@@ -13,6 +13,7 @@ import Venuewaitlist from './components/Venuewaitlist/Venuewaitlist'
 import Createvenue from './components/CreateVenue/CreateVenue';
 import EditVenue from './components/EditVenue/Editvenue';
 import Createstaff from './components/Createstaff/Createstaff';
+import Manageusers from './components/Manageusers/Manageusers';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
 
@@ -35,6 +36,7 @@ const App = () => {
             <Route path='/create/venue' element={<Createvenue />} />
             <Route path='/venue/edit/:id' element={<EditVenue />} />
             <Route path='/admin/staff' element={<Createstaff />} />
+            <Route path='/admin/users' element={<Manageusers />} />
           </>
             :
             <>

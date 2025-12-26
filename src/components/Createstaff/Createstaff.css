@@ -1,0 +1,66 @@
+.create-staff-page {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #fff;
+  background: linear-gradient(180deg,#1f2b44 0%,#0f1830 100%);
+  min-height: 100vh;
+  text-align: center;
+}
+
+h1 { margin-bottom: 32px; }
+
+.staff-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #445;
+  background: rgba(20,30,50,0.7);
+  color: #fff;
+}
+
+.staff-form button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #e63946;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Modal */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #14202f;
+  padding: 24px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content h2 { margin-bottom: 12px; }
+.modal-content p { margin-bottom: 20px; }
+.modal-content button {
+  background: #e63946;
+  border: none;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
