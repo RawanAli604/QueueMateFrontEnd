@@ -22,7 +22,6 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       try {
-        // Fetch all venues (needed to map venue_id to name)
         const allVenues = await venueService.getAllVenues();
         const map = {};
         allVenues.forEach(v => map[v.id] = v.name);
@@ -35,8 +34,15 @@ const Dashboard = () => {
         }
 
         if (user.role === 'staff') {
-          const stats = await venueService.getStaffVenues();
-          setVenuesStats(stats);
+          const stats = await venueService.getStaffVenues(); // staff venues
+          const updatedStats = await Promise.all(
+            stats.map(async (venue) => {
+              const waitlists = await waitlistService.getVenueWaitlistsStaff(venue.id);
+              const seatedCount = waitlists.filter(w => w.status === 'seated').length;
+              return { ...venue, totalCustomers: seatedCount };
+            })
+          );
+          setVenuesStats(updatedStats);
         }
 
         if (user.role === 'admin') {
@@ -46,14 +52,13 @@ const Dashboard = () => {
 
         setLoading(false);
       } catch (err) {
-        console.log(err)
+        console.error(err);
       }
     };
 
     fetchData();
   }, [user]);
 
-  // Countdown for estimated wait time
   const getCountdown = (waitlist) => {
     if (!waitlist) return null;
 
@@ -87,53 +92,54 @@ const Dashboard = () => {
 
       {user.role === 'customer' && (
         <div className='fcontainer'>
-   {latestWaitlist ? (
-  <section className="waitlist-container">
-    <div className="waitlist-header">
-      <h2>Active Waitlist</h2>
-      <span
-        className="cancel-icon"
-        onClick={() => setShowCancelConfirm(true)}
-        title="Cancel Waitlist"
-      >
-        ✖
-      </span>
-    </div>
-    <p>Venue: <strong>{venuesMap[latestWaitlist.venue_id] || 'Unknown'}</strong></p>
-    <p>Position in Queue: <strong>{latestWaitlist.position}</strong></p>
-    <p>Estimated Wait Time: <strong>{getCountdown(latestWaitlist)}</strong></p>
+          {latestWaitlist ? (
+            <section className="waitlist-container">
+              <div className="waitlist-header">
+                <h2>Active Waitlist</h2>
+                <span
+                  className="cancel-icon"
+                  onClick={() => setShowCancelConfirm(true)}
+                  title="Cancel Waitlist"
+                >
+                  ✖
+                </span>
+              </div>
+              <p>Venue: <strong>{venuesMap[latestWaitlist.venue_id] || 'Unknown'}</strong></p>
+              <p>Position in Queue: <strong>{latestWaitlist.position}</strong></p>
+              <p>Estimated Wait Time: <strong>{getCountdown(latestWaitlist)}</strong></p>
 
-    {showCancelConfirm && (
-      <div className="cancel-confirm-container">
-        <p>Are you sure you want to cancel your waitlist?</p>
-        <div className="cancel-buttons">
-          <button
-  className="confirm-btn"
-  onClick={async () => {
-    await handleCancel();     
-    setShowCancelConfirm(false);
-  }}>
-  Confirm
-</button>
-          <button
-            className="cancel-btn"
-            onClick={() => setShowCancelConfirm(false)}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    )}
-  </section>
-) : (
-  <section>
-    <h2>Welcome to QueueMate</h2>
-    <p>
-      QueueMate allows you to join and track venue waitlists efficiently.
-      Start by browsing available venues and add yourself to a queue to get live updates.
-    </p>
-  </section>
-)}
+              {showCancelConfirm && (
+                <div className="cancel-confirm-container">
+                  <p>Are you sure you want to cancel your waitlist?</p>
+                  <div className="cancel-buttons">
+                    <button
+                      className="confirm-btn"
+                      onClick={async () => {
+                        await handleCancel();
+                        setShowCancelConfirm(false);
+                      }}
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      className="cancel-btn"
+                      onClick={() => setShowCancelConfirm(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+            </section>
+          ) : (
+            <section>
+              <h2>Welcome to QueueMate</h2>
+              <p>
+                QueueMate allows you to join and track venue waitlists efficiently.
+                Start by browsing available venues and add yourself to a queue to get live updates.
+              </p>
+            </section>
+          )}
           <button onClick={() => navigate('/venues')}>Browse Venues</button>
         </div>
       )}
