@@ -164,7 +164,7 @@ const Dashboard = () => {
         <section>
           <h2>Admin Overview</h2>
           <p>Total Users: <strong>{allUsers.length}</strong></p>
-          <button onClick={() => navigate('/admin/create-staff')}>Add Staff</button>
+          <button onClick={() => navigate('/admin/staff')}>Add Staff</button>
           <button onClick={() => navigate('/admin/manage-users')}>Manage Users</button>
           <button onClick={() => navigate('/admin/analytics')}>View Analytics</button>
           <ul>

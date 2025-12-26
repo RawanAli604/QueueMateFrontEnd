@@ -5,7 +5,8 @@ import {
   getVenueWaitlistsStaff,
   approveWaitlist,
   rejectWaitlist,
-  markAsSeated
+  markAsSeated,
+  VenueWaitlistsStaff
 } from "../../services/waitlistService";
 import './Venuewaitlist.css';
 
@@ -21,7 +22,7 @@ export default function StaffVenueWaitlist() {
 
     const fetchWaitlists = async () => {
       try {
-        const data = await getVenueWaitlistsStaff(id);
+        const data = await VenueWaitlistsStaff(id);
         setWaitlists(data);
       } catch (err) {
         console.error(err);
@@ -84,7 +85,7 @@ export default function StaffVenueWaitlist() {
       {waitlists.length === 0 && <p>No waitlist entries yet.</p>}
       {waitlists.map(w => (
         <div key={w.id} className="waitlist-card">
-          <p><strong>User:</strong> {w.username || "Unknown"}</p>
+          <p><strong>User:</strong> {w.username}</p>
           <p>
             <strong>Status:</strong>{" "}
             <span className={`status-badge ${w.status}`}>
