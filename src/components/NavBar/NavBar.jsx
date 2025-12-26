@@ -21,7 +21,6 @@ const NavBar = () => {
         {user ? (
           <ul className='nav-links'>
 
-            {/* Links for Customer */}
             {user.role === 'customer' && (
               <>
                 <li className='nav-link'><Link to='/'>Dashboard</Link></li>

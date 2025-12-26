@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { signUp } from '../../services/authService';
+import { Link } from 'react-router-dom';
+
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -77,6 +79,7 @@ const SignUpForm = () => {
           <button type='button' onClick={() => navigate('/')}>Cancel</button>
         </div>
       </form>
+      <p>Already have an account? <button onClick={() =>navigate('/sign-in')}>Log in</button></p>
     </main>
   );
 };
