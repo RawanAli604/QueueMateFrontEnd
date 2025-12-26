@@ -12,39 +12,43 @@ export default function VenueDetailsPage() {
   const [venue, setVenue] = useState(null);
   const [waitlistCount, setWaitlistCount] = useState(0);
   const [myEntry, setMyEntry] = useState(null);
+  const [showPendingContainer, setShowPendingContainer] = useState(false); // pending container
 
-useEffect(() => {
-  getVenueById(id)
-    .then(setVenue)
-    .catch(console.error);
+  useEffect(() => {
+    getVenueById(id)
+      .then(setVenue)
+      .catch(console.error);
 
-  getVenueWaitlistCount(id)
-    .then(setWaitlistCount)
-    .catch(() => setWaitlistCount(0));
+    getVenueWaitlistCount(id)
+      .then(setWaitlistCount)
+      .catch(() => setWaitlistCount(0));
 
-  if (user?.role === "customer") {
-    getMyWaitlist()
-      .then(entries => {
-        const entry = entries.find(e => e.venue_id === parseInt(id));
-        setMyEntry(entry || null);
-      })
-      .catch(() => {});
-  }
-}, [id, user]);
-
-  const handleJoin = async () => {
-    try {
-      const entry = await joinWaitlist(parseInt(id,10));
-      setMyEntry(entry);
-      setWaitlistCount(prev => prev + 1);
-      setTimeout(() => {
-        navigate('/waitlist');
-      }, 2000);
-    } catch (err) {
-      console.error(err);
-      alert(err.message || "Failed to join waitlist.");
+    if (user?.role === "customer") {
+      getMyWaitlist()
+        .then(entries => {
+          const entry = entries.find(e => e.venue_id === parseInt(id));
+          setMyEntry(entry || null);
+        })
+        .catch(() => {});
     }
-  };
+  }, [id, user]);
+
+const handleJoin = async () => {
+  try {
+    const entry = await joinWaitlist(parseInt(id, 10));
+    setMyEntry(entry);
+    setWaitlistCount(prev => prev + 1);
+
+    setTimeout(() => navigate('/'), 2000);
+  } catch (err) {
+    console.error(err);
+    if (err.message.includes("You already have a waitlist entry for this venue") || err.message.includes("pending")) {
+      setShowPendingContainer(true);
+    } else {
+      alert(err.message || "Failed to join waitlist");
+    }
+  }
+};
 
   if (!venue) return <p>Loading...</p>;
 
@@ -53,11 +57,7 @@ useEffect(() => {
       <div className="venue-card">
         {venue.image_url && (
           <div className="venue-image-container">
-            <img
-              src={venue.image_url}
-              alt={venue.name}
-              className="venue-image"
-            />
+            <img src={venue.image_url} alt={venue.name} className="venue-image" />
           </div>
         )}
 
@@ -68,21 +68,32 @@ useEffect(() => {
           <p><strong>Average Service Time:</strong> {venue.avg_service_time} mins</p>
           <p><strong>Currently on Waitlist:</strong> {waitlistCount}</p>
 
-        {user?.role === "customer" && (!myEntry || myEntry.status !== "waiting") && (
-          <button onClick={handleJoin}>Join Waitlist</button>
-        )}
-        {user?.role === "staff" && (
-          <>
-          <button onClick={() => navigate(`/waitlist/my/${venue.id}`)}>Manage Waitlist</button>
-          <button onClick={() => navigate(`/venue/edit/${venue.id}`)}>Edit Venue</button>
-          </>
-        )}
+          {/* Join Button */}
+          {user?.role === "customer" && (!myEntry || myEntry.status !== "waiting") && (
+            <button onClick={handleJoin}>Join Waitlist</button>
+          )}
 
-          {myEntry && myEntry.status =='waiting' && (
+          {showPendingContainer && (
+            <div className="pending-container">
+              <h2>Pending Waitlist</h2>
+              <p>You already have a pending waitlist for this venue.</p>
+              <p>Please wait for it to be confirmed before joining again.</p>
+              <button className="close-btn" onClick={() => setShowPendingContainer(false)}>Close</button>
+            </div>
+          )}
+
+          {/* Staff Actions */}
+          {user?.role === "staff" && (
+            <>
+              <button onClick={() => navigate(`/waitlist/my/${venue.id}`)}>Manage Waitlist</button>
+              <button onClick={() => navigate(`/venue/edit/${venue.id}`)}>Edit Venue</button>
+            </>
+          )}
+
+          {myEntry && myEntry.status === 'waiting' && (
             <div className="waitlist-status">
               <strong>You're on the waitlist!</strong>
               <p>Position: {myEntry.position ?? "Pending"}</p>
-              <p>Status: {myEntry.status}</p>
             </div>
           )}
         </div>

@@ -10,12 +10,12 @@ const Dashboard = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const [latestWaitlist, setLatestWaitlist] = useState(null);
+  const [activeWaitlists, setActiveWaitlists] = useState([]);
   const [venuesStats, setVenuesStats] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [venuesMap, setVenuesMap] = useState({});
-  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [showCancelConfirmId, setShowCancelConfirmId] = useState(null);
 
   useEffect(() => {
     if (!user) return;
@@ -29,8 +29,8 @@ const Dashboard = () => {
 
         if (user.role === 'customer') {
           const waitlists = await waitlistService.getMyWaitlist();
-          const active = waitlists.find(w => w.status === 'waiting');
-          setLatestWaitlist(active || null);
+          const waiting = waitlists.filter(w => w.status === 'waiting');
+          setActiveWaitlists(waiting);
         }
 
         if (user.role === 'staff') {
@@ -61,23 +61,21 @@ const Dashboard = () => {
 
   const getCountdown = (waitlist) => {
     if (!waitlist) return null;
-
     const venueAvgTime = waitlist.venue_avg_service_time || 5; // fallback 5 min
     const etaMs = waitlist.position * venueAvgTime * 60 * 1000; // milliseconds
     const endTime = new Date(Date.now() + etaMs);
     const diff = endTime - Date.now();
     if (diff <= 0) return 'Your turn is up!';
-
     const minutes = Math.floor(diff / 60000);
     const seconds = Math.floor((diff % 60000) / 1000);
     return `${minutes}m ${seconds}s`;
   };
 
-  const handleCancel = async () => {
-    if (!latestWaitlist) return;
+  const handleCancel = async (waitlistId) => {
     try {
-      await waitlistService.cancelWaitlist(latestWaitlist.id);
-      setLatestWaitlist(null);
+      await waitlistService.cancelWaitlist(waitlistId);
+      setActiveWaitlists(prev => prev.filter(w => w.id !== waitlistId));
+      setShowCancelConfirmId(null);
     } catch (err) {
       console.error(err);
       alert('Failed to cancel waitlist.');
@@ -92,45 +90,44 @@ const Dashboard = () => {
 
       {user.role === 'customer' && (
         <div className='fcontainer'>
-          {latestWaitlist ? (
-            <section className="waitlist-container">
-              <div className="waitlist-header">
-                <h2>Active Waitlist</h2>
-                <span
-                  className="cancel-icon"
-                  onClick={() => setShowCancelConfirm(true)}
-                  title="Cancel Waitlist"
-                >
-                  ✖
-                </span>
-              </div>
-              <p>Venue: <strong>{venuesMap[latestWaitlist.venue_id] || 'Unknown'}</strong></p>
-              <p>Position in Queue: <strong>{latestWaitlist.position}</strong></p>
-              <p>Estimated Wait Time: <strong>{getCountdown(latestWaitlist)}</strong></p>
-
-              {showCancelConfirm && (
-                <div className="cancel-confirm-container">
-                  <p>Are you sure you want to cancel your waitlist?</p>
-                  <div className="cancel-buttons">
-                    <button
-                      className="confirm-btn"
-                      onClick={async () => {
-                        await handleCancel();
-                        setShowCancelConfirm(false);
-                      }}
-                    >
-                      Confirm
-                    </button>
-                    <button
-                      className="cancel-btn"
-                      onClick={() => setShowCancelConfirm(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
+          {activeWaitlists.length > 0 ? (
+            activeWaitlists.map(waitlist => (
+              <section key={waitlist.id} className="waitlist-container">
+                <div className="waitlist-header">
+                  <h2>Active Waitlist</h2>
+                  <span
+                    className="cancel-icon"
+                    onClick={() => setShowCancelConfirmId(waitlist.id)}
+                    title="Cancel Waitlist"
+                  >
+                    ✖
+                  </span>
                 </div>
-              )}
-            </section>
+                <p>Venue: <strong>{venuesMap[waitlist.venue_id] || 'Unknown'}</strong></p>
+                <p>Position in Queue: <strong>{waitlist.position}</strong></p>
+                <p>Estimated Wait Time: <strong>{getCountdown(waitlist)}</strong></p>
+
+                {showCancelConfirmId === waitlist.id && (
+                  <div className="cancel-confirm-container">
+                    <p>Are you sure you want to cancel your waitlist?</p>
+                    <div className="cancel-buttons">
+                      <button
+                        className="confirm-btn"
+                        onClick={async () => await handleCancel(waitlist.id)}
+                      >
+                        Confirm
+                      </button>
+                      <button
+                        className="cancel-btn"
+                        onClick={() => setShowCancelConfirmId(null)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </section>
+            ))
           ) : (
             <section>
               <h2>Welcome to QueueMate</h2>

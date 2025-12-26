@@ -83,6 +83,120 @@
   font-size: 0.95rem;
 }
 
+/* ====== Pending Waitlist Container ====== */
+.pending-container {
+  margin-top: 24px;
+  padding: 28px;
+  background: rgba(10, 18, 40, 0.75);
+  border: 1px solid rgba(120, 140, 200, 0.25);
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  text-align: center;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.pending-container h2 {
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.pending-container p {
+  margin-bottom: 12px;
+  color: #cfd8ff;
+  line-height: 1.5;
+}
+
+.pending-container .close-btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: rgba(180, 50, 50, 0.85);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.pending-container .close-btn:hover {
+  background: rgba(255, 80, 80, 0.95);
+  transform: translateY(-1px);
+}
+
+/* ===== Pending Waitlist Container ===== */
+.pending-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20, 20, 20, 0.85); /* dark grey translucent */
+  color: #fff;
+  padding: 28px 36px;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  z-index: 1000;
+  min-width: 300px;
+  max-width: 90%;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.pending-container p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.pending-container button {
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #e74c3c; /* red */
+  color: #fff;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.pending-container button:hover {
+  background: #ff5c4d;
+  transform: translateY(-1px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+@keyframes slideDown {
+  from {
+    transform: translate(-50%, -30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 /* Responsive layout: image left, info right on larger screens */
 @media(min-width: 768px) {
   .venue-card {

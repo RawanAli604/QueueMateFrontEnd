@@ -23,24 +23,17 @@ export const getVenueWaitlists = async (venueId) => {
 export const joinWaitlist = async (venueId) => {
   const res = await fetch(`${BASE_URL}/waitlist`, {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
+    headers: { 
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      venue_id: Number(venueId),
-    }),
+    body: JSON.stringify({ venue_id: venueId }),
   });
 
   const data = await res.json();
 
   if (!res.ok) {
-    console.error("WAITLIST ERROR:", JSON.stringify(data, null, 2));
-    const message =
-      Array.isArray(data?.detail) && data.detail[0]?.msg
-        ? data.detail[0].msg
-        : data.detail || "Unknown validation error";
-    throw new Error(message);
+    throw new Error(data.detail || data.message || JSON.stringify(data) || "Failed to join waitlist");
   }
 
   return data;
