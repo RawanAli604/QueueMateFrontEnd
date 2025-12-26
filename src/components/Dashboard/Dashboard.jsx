@@ -60,14 +60,14 @@ const Dashboard = () => {
     <main>
       <h1>Welcome, {user.username} !</h1>
       {user.role === 'customer' && (
-        <>
+        <div className='fcontainer'>
           {latestWaitlist ? (
             <section>
+              {/* add the cancellation  */}
               <h2>Active Waitlist</h2>
               <p>Venue: <strong>{latestWaitlist.venue_name}</strong></p>
               <p>Position in Queue: <strong>{latestWaitlist.position}</strong></p>
               <p>Estimated Wait Time: <strong>{getCountdown(latestWaitlist)}</strong></p>
-              <button onClick={() => navigate(`/waitlist/${latestWaitlist.id}`)}>View Details</button>
             </section>
           ) : (
             <section>
@@ -76,10 +76,10 @@ const Dashboard = () => {
                 QueueMate allows you to join and track venue waitlists efficiently.
                 Start by browsing available venues and add yourself to a queue to get live updates.
               </p>
-              <button onClick={() => navigate('/venues')}>Browse Venues</button>
             </section>
           )}
-        </>
+            <button onClick={() => navigate('/venues')}>Browse Venues</button>
+        </div>
       )}
 
       {user.role === 'staff' && (
@@ -91,14 +91,13 @@ const Dashboard = () => {
           {venuesStats.map((venue) => (
             <div key={venue.id} style={{ border: '1px solid #ccc', margin: '10px', padding: '10px' }}>
               <h3>{venue.name}</h3>
-              <p>Active Customers: <strong>{venue.activeCustomers}</strong></p>
               <p>Total Served Today: <strong>{venue.totalCustomers}</strong></p>
-              <button onClick={() => navigate(`/venue/${venue.id}/waitlist`)}>Manage Waitlist</button>
+              <button onClick={() => navigate(`/waitlist/my/${venue.id}`)}>Manage Waitlist</button>
               <button onClick={() => navigate(`/venue/${venue.id}/edit`)}>Edit Venue</button>
             </div>
           ))}
           <h2>Quick Actions</h2>
-          <button onClick={() => navigate('/create-venue')}>Create Venue</button>
+          <button onClick={() => navigate('/venue/create')}>Create Venue</button>
         </section>
       )}
 

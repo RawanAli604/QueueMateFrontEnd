@@ -8,6 +8,8 @@ import Dashboard from './components/Dashboard/Dashboard';
 import About from './components/About/About';
 import Venues from './components/Venueslist/Venueslist';
 import Venuedetail from './components/Venuedetail/Venuedetail';
+import Waitlisthistory from './components/Waitlisthistory/Waitlisthistory';
+import Venuewaitlist from './components/Venuewaitlist/Venuewaitlist'
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
 
@@ -25,6 +27,8 @@ const App = () => {
             <Route path='/' element={<Dashboard/>}/>
             <Route path='/venues' element={<Venues/>}/>
             <Route path='/venues/:id' element={<Venuedetail />} />
+            <Route path='/waitlist' element={<Waitlisthistory />} /> 
+            <Route path='/waitlist/my/:id' element={<Venuewaitlist />} /> 
           </>
             :
             <>
