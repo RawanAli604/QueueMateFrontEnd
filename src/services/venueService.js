@@ -21,3 +21,18 @@ export const getStaffVenues = async () => {
   if (!res.ok) throw new Error("Unauthorized");
   return res.json();
 };
+
+export const createVenue = async (venueData) => {
+  const res = await fetch(BASE_URL, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(venueData)
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || 'Failed to create venue');
+  }
+
+  return res.json();
+};

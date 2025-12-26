@@ -154,7 +154,7 @@ const Dashboard = () => {
             ))
           )}
           <h2>Quick Actions</h2>
-          <button onClick={() => navigate('/venue/create')}>Create Venue</button>
+          <button onClick={() => navigate('/create/venue')}>Create Venue</button>
         </section>
       )}
 

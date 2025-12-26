@@ -74,7 +74,6 @@ button:first-of-type:hover {
   transform: translateY(-1px);
 }
 
-/* Secondary Action */
 button:last-of-type {
   background: rgba(150, 165, 210, 0.16);
   color: #dfe6ff;
@@ -85,7 +84,6 @@ button:last-of-type:hover {
   transform: translateY(-1px);
 }
 
-/* ====== Feature List ====== */
 ul {
   margin-top: 12px;
   padding-left: 18px;
@@ -103,7 +101,6 @@ li {
   font-size: .9rem;
 }
 
-/* ====== Responsive ====== */
 @media (max-width: 700px) {
   h1 { font-size: 1.9rem; }
   section { padding: 22px; }
