@@ -52,6 +52,19 @@ export const getVenueWaitlistsStaff = async (venueId) => {
   return await res.json();
 };
 
+export const VenueWaitlistsStaff = async (venueId) => {
+  const res = await fetch(`${BASE_URL}/waitlist/venue/${venueId}/staff`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || 'Failed to fetch venue waitlist');
+  }
+
+  return await res.json();
+};
+
 export const cancelWaitlist = async (entryId) => {
   const res = await fetch(`${BASE_URL}/waitlist/my/${entryId}/cancel`, {
     method: 'PUT',

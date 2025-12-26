@@ -113,9 +113,14 @@ export default function VenueDetailsPage() {
         )}
 
         {user?.role === "staff" && (
+          <>
           <button onClick={() => navigate(`/waitlist/my/${venue.id}`)}>
             Manage Pending Waitlist
           </button>
+          <button onClick={() => navigate(`/venue/edit/${venue.id}`)}>
+            Edit Venue
+          </button>
+          </>
         )}
       </div>
     </main>

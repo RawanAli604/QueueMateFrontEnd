@@ -1,24 +1,132 @@
-.staff-waitlist-page {
-  padding: 20px;
-}
-
-.waitlist-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.waitlist-table th, .waitlist-table td {
-  border: 1px solid #ccc;
-  padding: 8px;
+/* ====== Layout ====== */
+main.staff-waitlist-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+  color: #e8ecf4;
+  background: linear-gradient(180deg, #1f2b44 0%, #0f1830 100%);
+  min-height: 100vh;
   text-align: center;
 }
 
-.waitlist-table th {
-  background-color: #f4f4f4;
+/* ====== Typography ====== */
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 32px;
 }
 
-button {
-  margin: 2px;
-  padding: 4px 8px;
+h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #cfd8ff;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 4px;
+  color: #d6dbeb;
+}
+
+/* ====== Waitlist Cards ====== */
+.waitlist-card {
+  background: rgba(10, 18, 40, 0.65);
+  border: 1px solid rgba(120, 140, 200, 0.25);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.28);
+  transition: transform 0.2s ease, border-color 0.25s ease;
+}
+
+.waitlist-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(180, 200, 255, 0.35);
+}
+
+/* ====== Status Badge ====== */
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.status-pending {
+  background: rgba(255, 165, 0, 0.2);
+  color: #ffb400;
+}
+
+.status-waiting {
+  background: rgba(0, 123, 255, 0.2);
+  color: #007bff;
+}
+
+.status-seated {
+  background: rgba(50, 200, 50, 0.2);
+  color: #32c832;
+}
+
+.status-rejected {
+  background: rgba(255, 50, 50, 0.2);
+  color: #ff3232;
+}
+
+/* ====== Buttons ====== */
+.waitlist-card .buttons {
+  margin-top: 12px;
+}
+
+.waitlist-card .buttons button {
+  margin: 6px 8px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
+  color: #fff;
+  transition: background 0.2s ease;
+}
+
+.waitlist-card .buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.waitlist-card .buttons button.approve {
+  background-color: #28a745;
+}
+
+.waitlist-card .buttons button.reject {
+  background-color: #dc3545;
+}
+
+.waitlist-card .buttons button.seated {
+  background-color: #007bff;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 700px) {
+  main.staff-waitlist-page {
+    padding: 36px 16px;
+  }
+  .waitlist-card {
+    padding: 16px 18px;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+  p {
+    font-size: 0.95rem;
+  }
 }

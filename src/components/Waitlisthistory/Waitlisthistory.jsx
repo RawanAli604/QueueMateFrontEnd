@@ -15,7 +15,6 @@ export default function WaitlistHistoryPage() {
 
     const fetchData = async () => {
       try {
-        // Fetch all venues and map id => name
         const venues = await getAllVenues();
         const map = {};
         venues.forEach(v => map[v.id] = v.name);
