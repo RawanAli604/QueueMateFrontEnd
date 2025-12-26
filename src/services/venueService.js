@@ -22,17 +22,23 @@ export const getStaffVenues = async () => {
   return res.json();
 };
 
-export const createVenue = async (venueData) => {
-  const res = await fetch(BASE_URL, {
-    method: 'POST',
-    headers: getAuthHeaders(),
-    body: JSON.stringify(venueData)
-  });
+export const createVenue = async (payload) => {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(payload),
+    });
 
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.detail || 'Failed to create venue');
+    if (!res.ok) {
+      const errData = await res.json();
+      console.error("CREATE VENUE ERROR:", errData);
+      throw new Error(errData.detail || "Failed to create venue");
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
-
-  return res.json();
 };
