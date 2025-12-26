@@ -1,0 +1,75 @@
+.waitlist-container {
+  position: relative;
+  border: 1px solid #ccc; /* keep previous color */
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px auto;
+  background-color: #ffffff; /* keep container color */
+  max-width: 500px;
+  text-align: center; /* central content */
+  transition: box-shadow 0.2s;
+}
+
+.waitlist-container:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.waitlist-header {
+  display: flex;
+  justify-content: center; /* keep title central */
+  position: relative;
+}
+
+.cancel-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  font-size: 18px;
+  color: grey; /* icon color */
+  display: none; /* hidden by default */
+}
+
+.waitlist-container:hover .cancel-icon {
+  display: block; /* show on hover */
+}
+
+.cancel-confirm-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 10;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.cancel-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.confirm-btn {
+  background-color: #e74c3c; /* red */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #ccc; /* grey */
+  color: #333;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
