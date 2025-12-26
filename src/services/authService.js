@@ -49,3 +49,22 @@ export const signIn = async (userData) => {
     throw err;
   }
 };
+
+export const createStaff = async ({ username, email, password }) => {
+  const res = await fetch(`${BASE_URL}/register/staff`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify({ username, email, password }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.detail || "Failed to create staff");
+  }
+
+  return data;
+};

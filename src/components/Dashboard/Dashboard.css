@@ -73,3 +73,87 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+/* ====== Layout ====== */
+.admin-dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+  color: #e8ecf4;
+  background: linear-gradient(180deg, #1f2b44 0%, #0f1830 100%);
+  min-height: 100vh;
+  text-align: center;
+}
+
+.admin-dashboard h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.admin-dashboard .intro-text {
+  font-size: 1.1rem;
+  margin-bottom: 100px;
+  color: #cfd8ff;
+}
+
+/* ====== Cards ====== */
+.overview-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.card {
+  background: rgba(10, 18, 40, 0.75);
+  border: 1px solid rgba(120, 140, 200, 0.25);
+  border-radius: 16px;
+  padding: 24px 16px;
+  transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(180, 200, 255, 0.4);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.card p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #d6dbeb;
+}
+
+/* ====== Individual Card Colors ====== */
+.total-users { border-top: 4px solid #32c832; }
+.add-staff { border-top: 4px solid #4db8ff; }
+.manage-users { border-top: 4px solid #ffa500; }
+.analytics { border-top: 4px solid #ff4d6d; }
+
+/* ====== Responsive ====== */
+@media (max-width: 700px) {
+  .admin-dashboard {
+    padding: 36px 16px;
+  }
+  .card {
+    padding: 20px 12px;
+  }
+  .card h2 {
+    font-size: 1.3rem;
+  }
+  .card p {
+    font-size: 0.95rem;
+  }
+}
+

@@ -1,53 +1,79 @@
 import { useState } from "react";
-import { createStaff } from "../../services/adminService";
+import { createStaff } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import './Createstaff.css';
 
 export default function CreateStaffPage() {
-  const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [popup, setPopup] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!username || !email || !password) {
+      setPopup({ type: "error", message: "All fields are required!" });
+      return;
+    }
+
     setLoading(true);
     try {
-      await createStaff({ username, password, email });
-      setModal({ title: "Success", message: "Staff created successfully!", type: "success" });
+      const newStaff = await createStaff({ username, email, password });
+      setPopup({ type: "success", message: `Staff ${newStaff.username} created successfully!` });
+
+      setUsername(""); 
+      setEmail(""); 
+      setPassword("");
+
+      setTimeout(() => navigate("/admin/users"), 2000);
+
     } catch (err) {
-      setModal({ title: "Error", message: err.message || "Failed to create staff", type: "error" });
+      setPopup({ type: "error", message: err.message || "Failed to create staff" });
     } finally {
       setLoading(false);
     }
   };
 
-  const handleClose = () => {
-    setModal(null);
-    if (modal?.type === "success") navigate('/admin/manage-users');
-  };
-
   return (
     <main className="create-staff-page">
-      <h1>Create Staff</h1>
-      <form className="staff-form" onSubmit={handleSubmit}>
-        <input type="text" placeholder="Username" value={username} required onChange={e => setUsername(e.target.value)} />
-        <input type="email" placeholder="Email" value={email} required onChange={e => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" value={password} required onChange={e => setPassword(e.target.value)} />
-        <button type="submit" disabled={loading}>{loading ? "Creating..." : "Create Staff"}</button>
-      </form>
+      <h1>Create Staff Member</h1>
+      <div className="form-container">
+        <form className="staff-form" onSubmit={handleSubmit}>
+          <input 
+            type="text" 
+            placeholder="Username" 
+            value={username} 
+            onChange={e => setUsername(e.target.value)} 
+            required 
+          />
+          <input 
+            type="email" 
+            placeholder="Email" 
+            value={email} 
+            onChange={e => setEmail(e.target.value)} 
+            required 
+          />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            value={password} 
+            onChange={e => setPassword(e.target.value)} 
+            required 
+          />
+          <button type="submit" disabled={loading}>
+            {loading ? "Creating..." : "Create Staff"}
+          </button>
+        </form>
 
-      {modal && (
-        <div className="modal-container">
-          <div className="modal-content">
-            <h2>{modal.title}</h2>
-            <p>{modal.message}</p>
-            <button onClick={handleClose}>OK</button>
+        {popup && (
+          <div className={`popup ${popup.type}`}>
+            <p>{popup.message}</p>
+            <button onClick={() => setPopup(null)}>Close</button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </main>
   );
 }

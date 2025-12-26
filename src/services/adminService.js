@@ -11,31 +11,17 @@ export const getAllUsers = async () => {
   return await res.json();
 };
 
-export const deleteUser = async (userId) => {
-  const res = await fetch(`${BASE_URL}/admin/users/${userId}`, {
+export const deleteUser = async (user_id) => {
+  const res = await fetch(`${BASE_URL}/users/${user_id}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   });
+
   if (!res.ok) {
     const err = await res.json();
     throw new Error(err.detail || "Failed to delete user");
   }
-  return await res.json();
-};
 
-export const createStaff = async (data) => {
-  const res = await fetch(`${BASE_URL}/admin/staff`, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem('token')}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.detail || "Failed to create staff");
-  }
   return await res.json();
 };
 

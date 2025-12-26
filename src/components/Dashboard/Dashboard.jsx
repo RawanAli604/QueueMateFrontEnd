@@ -161,20 +161,34 @@ const Dashboard = () => {
       )}
 
       {user.role === 'admin' && (
-        <section>
-          <h2>Admin Overview</h2>
-          <p>Total Users: <strong>{allUsers.length}</strong></p>
-          <button onClick={() => navigate('/admin/staff')}>Add Staff</button>
-          <button onClick={() => navigate('/admin/users')}>Manage Users</button>
-          <button onClick={() => navigate('/admin/analytics')}>View Analytics</button>
-          <ul>
-            {allUsers.map(u => (
-              <li key={u.username}>
-                {u.username} ({u.role})
-              </li>
-            ))}
-          </ul>
-        </section>
+        <>
+     <p className="intro-text">
+        Here’s an overview of your system. You can manage users, staff, and view analytics from here.
+      </p>
+
+      <section className="overview-cards">
+        <div className="card total-users">
+          <h2>Total Users</h2>
+          <p>{allUsers.length}</p>
+          <p>Keep track of all registered users in the platform.</p>
+        </div>
+
+        <div className="card add-staff" onClick={() => navigate('/admin/staff')}>
+          <h2>Add Staff</h2>
+          <p>Create a new staff member to help manage venues and waitlists.</p>
+        </div>
+
+        <div className="card manage-users" onClick={() => navigate('/admin/users')}>
+          <h2>Manage Users</h2>
+          <p>Search, view, edit, or delete users from the system.</p>
+        </div>
+
+        <div className="card analytics" onClick={() => navigate('/analytics')}>
+          <h2>View Analytics</h2>
+          <p>Analyze platform performance, user activity, and waitlist statistics.</p>
+        </div>
+      </section>
+      </>
       )}
     </main>
   );
