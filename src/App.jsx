@@ -11,6 +11,7 @@ import Venuedetail from './components/Venuedetail/Venuedetail';
 import Waitlisthistory from './components/Waitlisthistory/Waitlisthistory';
 import Venuewaitlist from './components/Venuewaitlist/Venuewaitlist'
 import Createvenue from './components/CreateVenue/CreateVenue';
+import EditVenue from './components/EditVenue/Editvenue';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
 
@@ -31,6 +32,7 @@ const App = () => {
             <Route path='/waitlist' element={<Waitlisthistory />} /> 
             <Route path='/waitlist/my/:id' element={<Venuewaitlist />} /> 
             <Route path='/create/venue' element={<Createvenue />} />
+            <Route path='/venue/edit/:id' element={<EditVenue />} />
           </>
             :
             <>

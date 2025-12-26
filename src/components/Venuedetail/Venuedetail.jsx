@@ -71,6 +71,12 @@ useEffect(() => {
         {user?.role === "customer" && (!myEntry || myEntry.status !== "waiting") && (
           <button onClick={handleJoin}>Join Waitlist</button>
         )}
+        {user?.role === "staff" && (
+          <>
+          <button onClick={() => navigate(`/waitlist/my/${venue.id}`)}>Manage Waitlist</button>
+          <button onClick={() => navigate(`/venue/edit/${venue.id}`)}>Edit Venue</button>
+          </>
+        )}
 
           {myEntry && myEntry.status =='waiting' && (
             <div className="waitlist-status">

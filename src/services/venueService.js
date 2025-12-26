@@ -42,3 +42,16 @@ export const createVenue = async (payload) => {
     throw err;
   }
 };
+
+export const updateVenue = async (id, venue) => {
+  const res = await fetch(`${BASE_URL}/${id}`, {
+    method: 'PUT',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(venue)
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || "Failed to update venue");
+  }
+  return res.json();
+};

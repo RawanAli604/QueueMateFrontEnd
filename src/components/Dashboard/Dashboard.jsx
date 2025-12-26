@@ -148,8 +148,7 @@ const Dashboard = () => {
               <div key={venue.id} style={{ border: '1px solid #ccc', margin: '10px', padding: '10px' }}>
                 <h3>{venue.name}</h3>
                 <p>Total Served Today: <strong>{venue.totalCustomers}</strong></p>
-                <button onClick={() => navigate(`/waitlist/my/${venue.id}`)}>Manage Waitlist</button>
-                <button onClick={() => navigate(`/venue/${venue.id}/edit`)}>Edit Venue</button>
+                <button onClick={() => navigate(`/venues/${venue.id}`)}>View Venue</button>
               </div>
             ))
           )}
