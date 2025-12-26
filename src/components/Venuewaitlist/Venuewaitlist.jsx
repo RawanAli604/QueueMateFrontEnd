@@ -55,20 +55,6 @@ export default function StaffVenueWaitlist() {
     }
   };
 
-  const handleCancel = async (entryId) => {
-    setLoadingId(entryId);
-    try {
-      await cancelWaitlist(entryId);
-      setWaitlists(prev => prev.filter(w => w.id !== entryId));
-      alert("Canceled successfully!");
-    } catch (err) {
-      console.error(err);
-      alert(err.message || "Failed to cancel");
-    } finally {
-      setLoadingId(null);
-    }
-  };
-
   if (loading) return <p>Loading waitlist...</p>;
 
   return (
@@ -88,9 +74,6 @@ export default function StaffVenueWaitlist() {
             </>
           )}
 
-          {w.status === "waiting" && (
-            <button disabled={loadingId === w.id} onClick={() => handleCancel(w.id)}>Cancel</button>
-          )}
         </div>
       ))}
     </main>
